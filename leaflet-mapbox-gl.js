@@ -80,6 +80,11 @@
             if (map.options.zoomAnimation) {
                 L.DomEvent.on(map._proxy, L.DomUtil.TRANSITION_END, this._transitionEnd, this);
             }
+            
+            // work around for tiles not loading on edges (with angular material sidenav mode="side")
+            var container = this._glContainer,
+                topLeft = this._map.containerPointToLayerPoint([0, 0]);
+            L.DomUtil.setPosition(container, topLeft);
         },
 
         onRemove: function (map) {
